@@ -17,7 +17,6 @@
 
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            /* Fons de magatzem amb caixes */
             background: linear-gradient(rgba(15, 23, 42, 0.75), rgba(15, 23, 42, 0.75)), 
                         url('https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&w=1920&q=80') no-repeat center center fixed;
             background-size: cover;
@@ -229,7 +228,7 @@
             </form>
         </div>
 
-        <!-- PANTALLA 2: ELS 8 REPTES INTERACTIUS -->
+        <!-- PANTALLA 2: ELS 10 REPTES INTERACTIUS -->
         <div id="quiz-screen">
             <div class="score-display">Puntuació Actual: <span id="current-score">0.00</span> / 10.00 punts</div>
 
@@ -250,7 +249,6 @@
                         <div class="draggable-item" draggable="true" ondragstart="drag(event)" data-target="z2">Grans inventaris emmagatzemats per evitar ruptures d'estoc[cite: 9].</div>
                         <div class="draggable-item" draggable="true" ondragstart="drag(event)" data-target="z2">Distribució física associada directament a la generació de costos[cite: 9].</div>
                         <div class="draggable-item" draggable="true" ondragstart="drag(event)" data-target="trash">Repartiment autònom mitjançant drons intergalàctics.</div>
-                        <div class="draggable-item" draggable="true" ondragstart="drag(event)" data-target="trash">Teletransportació quàntica instantània de mercaderies.</div>
                     </div>
                     <div class="dropzones-container">
                         <div class="dropzone" id="z1" ondragover="allowDrop(event)" ondragleave="removeHover(event)" ondrop="drop(event)"><h4>Actualitat</h4></div>
@@ -319,7 +317,7 @@
                     </div>
                 </div>
 
-                <!-- REPTE 5 (Sense números davant de cada enunciat) -->
+                <!-- REPTE 5 -->
                 <div class="exercise-box" data-exercise="5">
                     <div class="exercise-title">Repte 5: Les 5 Etapes del Procés d'Aprovisionament</div>
                     <div class="items-pool" ondragover="allowDrop(event)" ondrop="dropToPool(event)">
@@ -356,7 +354,7 @@
                     </div>
                 </div>
 
-                <!-- REPTE 7 (Sense números davant de cada enunciat) -->
+                <!-- REPTE 7 -->
                 <div class="exercise-box" data-exercise="7">
                     <div class="exercise-title">Repte 7: El Pla d'Aprovisionament (Full de Ruta)</div>
                     <div class="items-pool" ondragover="allowDrop(event)" ondrop="dropToPool(event)">
@@ -389,6 +387,46 @@
                     </div>
                 </div>
 
+                <!-- REPTE 9 -->
+                <div class="exercise-box" data-exercise="9">
+                    <div class="exercise-title">Repte 9: Exemples d'Activitats (Procés de Compra vs Aprovisionament Global)</div>
+                    <div class="items-pool" ondragover="allowDrop(event)" ondrop="dropToPool(event)">
+                        <div class="draggable-item" draggable="true" ondragstart="drag(event)" data-target="z1">Recerca i selecció de proveïdors adequats[cite: 10].</div>
+                        <div class="draggable-item" draggable="true" ondragstart="drag(event)" data-target="z1">Negociació de preus i condicions amb proveïdors[cite: 10].</div>
+                        <div class="draggable-item" draggable="true" ondragstart="drag(event)" data-target="z1">Comparació entre diversos productes abans de decidir[cite: 10].</div>
+                        <div class="draggable-item" draggable="true" ondragstart="drag(event)" data-target="z1">Tramitació i realització formal de la comanda[cite: 10].</div>
+                        <div class="draggable-item" draggable="true" ondragstart="drag(event)" data-target="z1">Aconseguir descomptes per volum de compra[cite: 10].</div>
+                        <div class="draggable-item" draggable="true" ondragstart="drag(event)" data-target="z2">Determinació dels nivells d'estoc adequats per a l'empresa[cite: 10].</div>
+                        <div class="draggable-item" draggable="true" ondragstart="drag(event)" data-target="z2">Determinació de la periodicitat i quantitat de les comandes[cite: 10].</div>
+                        <div class="draggable-item" draggable="true" ondragstart="drag(event)" data-target="z2">Registre i control de la mercaderia a l'arribada al magatzem[cite: 10].</div>
+                        <div class="draggable-item" draggable="true" ondragstart="drag(event)" data-target="z2">Control i valoració de les existències al magatzem[cite: 10].</div>
+                        <div class="draggable-item" draggable="true" ondragstart="drag(event)" data-target="z2">Comunicació interna de necessitats de material per part dels empleats[cite: 10].</div>
+                        <div class="draggable-item" draggable="true" ondragstart="drag(event)" data-target="trash">Planificació de rutes de repartiment de paqueteria urgent al client final.</div>
+                    </div>
+                    <div class="dropzones-container">
+                        <div class="dropzone" id="z1" ondragover="allowDrop(event)" ondragleave="removeHover(event)" ondrop="drop(event)"><h4>Procés de Compra</h4></div>
+                        <div class="dropzone" id="z2" ondragover="allowDrop(event)" ondragleave="removeHover(event)" ondrop="drop(event)"><h4>Procés d'Aprovisionament (Global / Estocs)</h4></div>
+                        <div class="dropzone trash-zone" id="trash" ondragover="allowDrop(event)" ondragleave="removeHover(event)" ondrop="drop(event)"><h4>Paperera (Distractors)</h4></div>
+                    </div>
+                </div>
+
+                <!-- REPTE 10 (Nou exercici basat en la imatge de les 5 etapes sense números inicials) -->
+                <div class="exercise-box" data-exercise="10">
+                    <div class="exercise-title">Repte 10: Detall de les 5 Etapes del Procés d'Aprovisionament</div>
+                    <div class="items-pool" ondragover="allowDrop(event)" ondrop="dropToPool(event)">
+                        <div class="draggable-item" draggable="true" ondragstart="drag(event)" data-target="z1">Identificació de necessitats: Comunicació per part de cada departament de l'empresa dels materials, productes o serveis que requereix[cite: 11].</div>
+                        <div class="draggable-item" draggable="true" ondragstart="drag(event)" data-target="z1">Selecció de les fonts d'aprovisionament: Recerca i avaluació dels proveïdors més adequats (sol·licitud de pressupostos i elecció final)[cite: 11].</div>
+                        <div class="draggable-item" draggable="true" ondragstart="drag(event)" data-target="z1">Gestió de compres: Realització i tramitació de la comanda, seguiment, recepció i validació per procedir al pagament[cite: 11].</div>
+                        <div class="draggable-item" draggable="true" ondragstart="drag(event)" data-target="z1">Gestió d'estocs: Execució i control de les operacions d'emmagatzematge i registre d'entrades i sortides de materials[cite: 11].</div>
+                        <div class="draggable-item" draggable="true" ondragstart="drag(event)" data-target="z1">Avaluació i control: Valoració del grau d'assoliment dels objectius previstos i supervisió del desenvolupament de les activitats[cite: 11].</div>
+                        <div class="draggable-item" draggable="true" ondragstart="drag(event)" data-target="trash">Realització de la campanya publicitària d'estiu per augmentar les vendes al detall.</div>
+                    </div>
+                    <div class="dropzones-container">
+                        <div class="dropzone" id="z1" ondragover="allowDrop(event)" ondragleave="removeHover(event)" ondrop="drop(event)"><h4>Classificació de les 5 Etapes</h4></div>
+                        <div class="dropzone trash-zone" id="trash" ondragover="allowDrop(event)" ondragleave="removeHover(event)" ondrop="drop(event)"><h4>Paperera (Distractors)</h4></div>
+                    </div>
+                </div>
+
                 <button type="button" id="submit-btn" onclick="submitResults()">Enviar Resultats al Professor</button>
             </form>
         </div>
@@ -396,8 +434,8 @@
 
     <script>
         let studentEmail = "";
-        let exerciseScores = {1:0, 2:0, 3:0, 4:0, 5:0, 6:0, 7:0, 8:0};
-        let exerciseAttempted = {1:false, 2:false, 3:false, 4:false, 5:false, 6:false, 7:false, 8:false};
+        let exerciseScores = {1:0, 2:0, 3:0, 4:0, 5:0, 6:0, 7:0, 8:0, 9:0, 10:0};
+        let exerciseAttempted = {1:false, 2:false, 3:false, 4:false, 5:false, 6:false, 7:false, 8:false, 9:false, 10:false};
 
         document.getElementById('student-form').addEventListener('submit', function(e) {
             e.preventDefault();
@@ -478,7 +516,7 @@
             });
 
             if (correct) {
-                exerciseScores[exId] = 1.25;
+                exerciseScores[exId] = 1.00; // 10 exercicis x 1.00 = 10 punts totals
                 exerciseBox.style.backgroundColor = "#ecfdf5";
                 exerciseBox.style.borderColor = "#10b981";
             } else {
