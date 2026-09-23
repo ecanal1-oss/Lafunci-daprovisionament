@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bateria d'Exercicis: La Funció d'Aprovisionament</title>
+    <style>
+        :root {
+            --primary-color: #1e3a8a;
+            --secondary-color: #3b82f6;
+            --accent-color: #10b981;
+            --danger-color: #ef4444;
+            --bg-color: #f8fafc;
+            --card-bg: #ffffff;
+            --text-color: #1e293b;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+        }
+
+        header {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 2rem;
+            text-align: center;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+        }
+
+        .card {
+            background-color: var(--card-bg);
+            border-radius: 12px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            padding: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        /* Pantalla d'inici / registre */
+        #login-screen h2 {
+            color: var(--primary-color);
+            margin-top: 0;
+        }
+
+        .form-group {
+            margin-bottom: 1.5krem;
+            margin-top: 1rem;
+        }
+
+        label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        input[type="email"], input[type="text"] {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid #cbd5e1;
+            border-radius: 8px;
+            font-size: 1rem;
+            box-sizing: border-box;
+        }
+
+        button {
+            background-color: var(--secondary-color);
+            color: white;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            font-size: 1rem;
+            font-weight: 600;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+
+        button:hover {
+            background-color: #2563eb;
+        }
+
+        /* Secció d'exercicis (oculta inicialment) */
+        #quiz-screen {
+            display: none;
+        }
+
+        .exercise-box {
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+            background-color: #fff;
+        }
+
+        .exercise-title {
+            font-size: 1.1rem;
+            font-weight: bold;
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+        }
+
+        .items-pool {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.75rem;
+            padding: 1rem;
+            background-color: #f1f5f9;
+            border-radius: 8px;
+            min-height: 60px;
+            margin-bottom: 1.5rem;
+        }
+
+        .draggable-item {
+            background-color: white;
+            border: 2px solid var(--secondary-color);
+            color: var(--text-color);
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            cursor: grab;
+            font-size: 0.9rem;
+            font-weight: 500;
+            user-select: none;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            transition: transform 0.1s, background-color 0.2s;
+        }
+
+        .draggable-item:active {
+            cursor: grabbing;
+        }
+
+        .dropzones-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1rem;
+        }
+
+        .dropzone {
+            border: 2px dashed #cbd5e1;
+            border-radius: 8px;
+            padding: 1rem;
+            min-height: 120px;
+            background-color: #fafafa;
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+            transition: background-color 0.2s, border-color 0.2s;
+        }
+
+        .dropzone.drag-over {
+            background-color: #eff6ff;
+            border-color: var(--secondary-color);
+        }
+
+        .dropzone h4 {
+            margin: 0 0 0.5rem 0;
+            font-size: 0.95rem;
+            color: #475569;
+            text-align: center;
+            border-bottom: 1px solid #e2e8f0;
+            padding-bottom: 0.3rem;
+        }
+
+        .trash-zone {
+            border: 2px dashed var(--danger-color);
+            background-color: #fef2f2;
+        }
+
+        .trash-zone h4 {
+            color: var(--danger-color);
+            border-bottom-color: #fecaca;
+        }
+
+        .score-display {
+            font-size: 1.2rem;
+            font-weight: bold;
+            text-align: right;
+            margin-bottom: 1rem;
+            color: var(--primary-color);
+        }
+
+        #submit-btn {
+            background-color: var(--accent-color);
+            width: 100%;
+            font-size: 1.2rem;
+            padding: 1rem;
+            margin-top: 1rem;
+        }
+
+        #submit-btn:hover {
+            background-color: #059669;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>Gestió Logística i Aprovisionament</h1>
+        <p>Bateria d'Exercicis Pràctics - Cicle d'Administració i Finances</p>
+    </header>
+
+    <div class="container">
+        <!-- PANTALLA 1: REGISTRE DE CORREU -->
+        <div id="login-screen" class="card">
+            <h2>Identificació de l'Alumne</h2>
+            <p>Introdueix el teu correu electrònic institucional o personal per començar l'activitat. Un cop finalitzis, els resultats s'enviaran automàticament al professor.</p>
+            <form id="student-form">
+                <div class="form-group">
+                    <label for="student-email">Correu electrònic (Remitent):</label>
+                    <input type="email" id="student-email" required placeholder="alumne@iestremp.cat">
+                </div>
+                <button type="submit">Començar els Exercicis</button>
+            </form>
+        </div>
+
+        <!-- PANTALLA 2: ELS 8 EXERCICIS -->
+        <div id="quiz-screen">
+            <div class="score-display">Puntuació Actual: <span id="current-score">0.00</span> / 10.00 punts</div>
+
+            <form id="results-form" action="https://formspree.io/f/xoevwvga" method="POST">
+                <!-- Camps ocults per Formspree -->
+                <input type="hidden" name="email_estudiant" id="form-email">
+                <input type="hidden" name="puntuacio_total" id="form-score">
+
+                <!-- EXERCICI 1 -->
+                <div class="exercise-box" data-exercise="1">
+                    <div class="exercise-title">Exercici 1: Les necessitats d'aprovisionament (Què i quan comprar?)</div>
+                    <div class="items-pool" ondragover="allowDrop(event)" ondrop="dropToPool(event)">
+                        <div class="draggable-item" draggable="true" ondragstart="drag(event)" data-target="z1">Abastiment constant de productes d'alimentació envasada.</div>
+                        <div class="draggable-item" draggable="true" ondragstart="drag(event)" data-target="z2">Planificació de la demanda (Forecasting) per Nadal.</div>
+                        <div class="draggable-item" draggable="true" ondragstart="drag(event)" data-target="trash">Disseny de campanya publicitària a Instagram.</div>
+                    </div>
+                    <div class="dropzones-container">
+                        <div class="dropzone" id="z1" ondragover="allowDrop(event)" ondragleave="removeHover(event)" ondrop="drop(event)"><h4>Què comprar?</h4></div>
+                        <div class="dropzone" id="z2" ondragover="allowDrop(event)" ondragleave="removeHover(event)" ondrop="drop(event)"><h4>Quan comprar?</h4></div>
+                        <div class="dropzone trash-zone" id="trash" ondragover="allowDrop(event)" ondragleave="removeHover(event)" ondrop="drop(event)"><h4>Paperera (Distractors)</h4></div>
+                    </div>
+                </div>
+
+                <!-- EXERCICI 2 -->
+                <div class="exercise-box" data-exercise="2">
+                    <div class="exercise-title">Exercici 2: Selecció de proveïdors idonis (A qui comprar?)</div>
+                    <div class="items-pool" ondragover="allowDrop(event)" ondrop="dropToPool(event)">
+                        <div class="draggable-item" draggable="true" ondragstart="drag(event)" data-target="z1">Multinacionals de gran consum (ex. Nestlé o Danone).</div>
+                        <div class="draggable-item" draggable="true" ondragstart="drag(event)" data-target="z2">Operadors de transport i palets reutilitzables (CHEP).</div>
+                        <div class="draggable-item" draggable="true" ondragstart="drag(event)" data-target="trash">Selecció i entrevista dels nous caixers.</div>
+                    </div>
+                    <div class="dropzones-container">
+                        <div class="dropzone" id="z1" ondragover="allowDrop(event)" ondragleave="removeHover(event)" ondrop="drop(event)"><h4>Proveïdors de Producte</h4></div>
+                        <div class="dropzone" id="z2" ondragover="allowDrop(event)" ondragleave="removeHover(event)" ondrop="drop(event)"><h4>Proveïdors de Serveis</h4></div>
+                        <div class="dropzone trash-zone" id="trash" ondragover="allowDrop(event)" ondragleave="removeHover(event)" ondrop="drop(event)"><h4>Paperera (Distractors)</h4></div>
+                    </div>
+                </div>
+
+                <!-- EXERCICI 3 -->
+                <div class="exercise-box" data-exercise="3">
+                    <div class="exercise-title">Exercici 3: Gestió de compres i negociació (Com comprar?)</div>
+                    <div class="items-pool" ondragover="allowDrop(event)" ondrop="dropToPool(event)">
+                        <div class="draggable-item" draggable="true" ondragstart="drag(event)" data-target="z1">Generació de comanda automàtica via EDI.</div>
+                        <div class="draggable-item" draggable="true" ondragstart="drag(event)" data-target="z2">Negociació de ràpels i descomptes per volum.</div>
+                        <div class="draggable-item" draggable="true" ondragstart="drag(event)" data-target="trash">Registre comptable dels salaris de personal.</div>
+                    </div>
+                    <div class="dropzones-container">
+                        <div class="dropzone" id="z1" ondragover="allowDrop(event)" ondragleave="removeHover(event)" ondrop="drop(event)"><h4>Procés i Automatització</h4></div>
+                        <div class="dropzone" id="z2" ondragover="allowDrop(event)" ondragleave="removeHover(event)" ondrop="drop(event)"><h4>Negociació Econòmica</h4></div>
+                        <div class="dropzone trash-zone" id="trash" ondragover="allowDrop(event)" ondragleave="removeHover(event)" ondrop="drop(event)"><h4>Paperera (Distractors)</h4></div>
+                    </div>
+                </div>
+
+                <!-- EXERCICI 4 -->
+                <div class="exercise-box" data-exercise="4">
+                    <div class="exercise-title">Exercici 4: Gestió d'estocs i magatzem</div>
+                    <div class="items-pool" ondragover="allowDrop(event)" ondrop="dropToPool(event)">
+                        <div class="draggable-item" draggable="true" ondragstart="drag(event)" data-target="z1">Manteniment d'estoc de seguretat davant retards.</div>
+                        <div class="draggable-item" draggable="true" ondragstart="drag(event)" data-target="z2">Aplicació del mètode FIFO per caducitats.</div>
+                        <div class="draggable-item" draggable="true" ondragstart="drag(event)" data-target="trash">Arxiu històric de factures d'ingressos.</div>
+                    </div>
+                    <div class="dropzones-container">
+                        <div class="dropzone" id="z1" ondragover="allowDrop(event)" ondragleave="removeHover(event)" ondrop="drop(event)"><h4>Tipus d'Estocs</h4></div>
+                        <div class="dropzone" id="z2" ondragover="allowDrop(event)" ondragleave="removeHover(event)" ondrop="drop(event)"><h4>Criteris de Sortida (FIFO)</h4></div>
+                        <div class="dropzone trash-zone" id="trash" ondragover="allowDrop(event)" ondragleave="removeHover(event)" ondrop="drop(event)"><h4>Paperera (Distractors)</h4></div>
+                    </div>
+                </div>
+
+                <!-- EXERCICI 5 -->
+                <div class="exercise-box" data-exercise="5">
+                    <div class="exercise-title">Exercici 5: Estructures organitzatives de l'aprovisionament</div>
+                    <div class="items-pool" ondragover="allowDrop(event)" ondrop="dropToPool(event)">
+                        <div class="draggable-item" draggable="true" ondragstart="drag(event)" data-target="z1">Un únic departament central unifica totes les compres.</div>
+                        <div class="draggable-item" draggable="true" ondragstart="drag(event)" data-target="z2">Cada plataforma logística regional compra de forma autònoma.</div>
+                        <div class="draggable-item" draggable="true" ondragstart="drag(event)" data-target="trash">Estructura piramidal clàssica de recursos humans.</div>
+                    </div>
+                    <div class="dropzones-container">
+                        <div class="dropzone" id="z1" ondragover="allowDrop(event)" ondragleave="removeHover(event)" ondrop="drop(event)"><h4>Gestió Centralitzada</h4></div>
+                        <div class="dropzone" id="z2" ondragover="allowDrop(event)" ondragleave="removeHover(event)" ondrop="drop(event)"><h4>Gestió Descentralitzada</h4></div>
+                        <div class="dropzone trash-zone" id="trash" ondragover="allowDrop(event)" ondragleave="removeHover(event)" ondrop="drop(event)"><h4>Paperera (Distractors)</h4></div>
+                    </div>
+                </div>
+
+                <!-- EXERCICI 6 -->
+                <div class="exercise-box" data-exercise="6">
+                    <div class="exercise-title">Exercici 6: Beneficis d'una gestió d'aprovisionament eficient</div>
+                    <div class="items-pool" ondragover="allowDrop(event)" ondrop="dropToPool(event)">
+                        <div class="draggable-item" draggable="true" ondragstart="drag(event)" data-target="z1">Reducció dels costos de compra i major marge de benefici.</div>
+                        <div class="draggable-item" draggable="true" ondragstart="drag(event)" data-target="z2">Creació de relacions de confiança a llarg termini amb proveïdors.</div>
+                        <div class="draggable-item" draggable="true" ondragstart="drag(event)" data-target="trash">Modificació del tipus d'interès legal del diner.</div>
+                    </div>
+                    <div class="dropzones-container">
+                        <div class="dropzone" id="z1" ondragover="allowDrop(event)" ondragleave="removeHover(event)" ondrop="drop(event)"><h4>Beneficis Econòmics</h4></div>
+                        <div class="dropzone" id="z2" ondragover="allowDrop(event)" ondragleave="removeHover(event)" ondrop="drop(event)"><h4>Beneficis Tècnics i Relació</h4></div>
+                        <div class="dropzone trash-zone" id="trash" ondragover="allowDrop(event)" ondragleave="removeHover(event)" ondrop="drop(event)"><h4>Paperera (Distractors)</h4></div>
+                    </div>
+                </div>
+
+                <!-- EXERCICI 7 -->
+                <div class="exercise-box" data-exercise="7">
+                    <div class="exercise-title">Exercici 7: El Pla d'Aprovisionament</div>
+                    <div class="items-pool" ondragover="allowDrop(event)" ondrop="dropToPool(event)">
+                        <div class="draggable-item" draggable="true" ondragstart="drag(event)" data-target="z1">Estudi de la situació actual i objectius a curt termini.</div>
+                        <div class="draggable-item" draggable="true" ondragstart="drag(event)" data-target="z2">Desenvolupament del procés de compra i control de qualitat.</div>
+                        <div class="draggable-item" draggable="true" ondragstart="drag(event)" data-target="trash">Presentació de l'Impost de Societats a Hisenda.</div>
+                    </div>
+                    <div class="dropzones-container">
+                        <div class="dropzone" id="z1" ondragover="allowDrop(event)" ondragleave="removeHover(event)" ondrop="drop(event)"><h4>Fase 1: Anàlisi Prèvia</h4></div>
+                        <div class="dropzone" id="z2" ondragover="allowDrop(event)" ondragleave="removeHover(event)" ondrop="drop(event)"><h4>Fase 2: Posada en Marxa</h4></div>
+                        <div class="dropzone trash-zone" id="trash" ondragover="allowDrop(event)" ondragleave="removeHover(event)" ondrop="drop(event)"><h4>Paperera (Distractors)</h4></div>
+                    </div>
+                </div>
+
+                <!-- EXERCICI 8 -->
+                <div class="exercise-box" data-exercise="8">
+                    <div class="exercise-title">Exercici 8: Aplicació de les TIC en l'aprovisionament</div>
+                    <div class="items-pool" ondragover="allowDrop(event)" ondrop="dropToPool(event)">
+                        <div class="draggable-item" draggable="true" ondragstart="drag(event)" data-target="z1">Ús d'un ERP per calcular demanda i automatitzar comandes.</div>
+                        <div class="draggable-item" draggable="true" ondragstart="drag(event)" data-target="z2">Intercanvi electrònic de dades (EDI) amb proveïdors.</div>
+                        <div class="draggable-item" draggable="true" ondragstart="drag(event)" data-target="trash">Passarel·la de pagament TPV virtual per a clients.</div>
+                    </div>
+                    <div class="dropzones-container">
+                        <div class="dropzone" id="z1" ondragover="allowDrop(event)" ondragleave="removeHover(event)" ondrop="drop(event)"><h4>Gestió Interna (ERP/SGA)</h4></div>
+                        <div class="dropzone" id="z2" ondragover="allowDrop(event)" ondragleave="removeHover(event)" ondrop="drop(event)"><h4>Col·laboració Externa (EDI)</h4></div>
+                        <div class="dropzone trash-zone" id="trash" ondragover="allowDrop(event)" ondragleave="removeHover(event)" ondrop="drop(event)"><h4>Paperera (Distractors)</h4></div>
+                    </div>
+                </div>
+
+                <button type="button" id="submit-btn" onclick="submitResults()">Enviar Resultats al Professor</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        let studentEmail = "";
+        let exerciseScores = {1:0, 2:0, 3:0, 4:0, 5:0, 6:0, 7:0, 8:0};
+        let exerciseAttempted = {1:false, 2:false, 3:false, 4:false, 5:false, 6:false, 7:false, 8:false};
+
+        document.getElementById('student-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const emailInput = document.getElementById('student-email').value;
+            if(!emailInput) return;
+            
+            studentEmail = emailInput;
+            document.getElementById('form-email').value = studentEmail;
+            
+            document.getElementById('login-screen').style.display = 'none';
+            document.getElementById('quiz-screen').style.display = 'block';
+        });
+
+        // Drag and Drop Logic
+        let draggedElement = null;
+
+        document.addEventListener('dragstart', function(e) {
+            if (e.target.classList.contains('draggable-item')) {
+                draggedElement = e.target;
+                e.dataTransfer.setData('text/plain', e.target.id);
+            }
+        });
+
+        function allowDrop(e) {
+            e.preventDefault();
+            const zone = e.target.closest('.dropzone');
+            if (zone) zone.classList.add('drag-over');
+        }
+
+        function removeHover(e) {
+            const zone = e.target.closest('.dropzone');
+            if (zone) zone.classList.remove('drag-over');
+        }
+
+        function dropToPool(e) {
+            e.preventDefault();
+            const pool = e.target.closest('.items-pool');
+            if (pool && draggedElement) {
+                pool.appendChild(draggedElement);
+            }
+        }
+
+        function drop(e) {
+            e.preventDefault();
+            const zone = e.target.closest('.dropzone');
+            if (!zone) return;
+            zone.classList.remove('drag-over');
+            
+            if (draggedElement) {
+                zone.appendChild(draggedElement);
+                evaluateExercise(zone.closest('.exercise-box'));
+            }
+        }
+
+        function evaluateExercise(exerciseBox) {
+            const exId = exerciseBox.getAttribute('data-exercise');
+            if (exerciseAttempted[exId]) return; // Ja s'ha avaluat (sense segones oportunitats)
+
+            const items = exerciseBox.querySelectorAll('.draggable-item');
+            const pool = exerciseBox.querySelector('.items-pool');
+            
+            // Comprovem si tots els elements han estat col·locats fora de la pool inicial
+            let allPlaced = true;
+            items.forEach(item => {
+                if (item.parentElement === pool) {
+                    allPlaced = false;
+                }
+            });
+
+            if (!allPlaced) return; // Si falten elements per col·locar, esperem
+
+            exerciseAttempted[exId] = true;
+            let correct = true;
+
+            items.forEach(item => {
+                const targetZoneId = item.getAttribute('data-target');
+                const parentZone = item.parentElement;
+                if (!parentZone.id || parentZone.id !== targetZoneId) {
+                    correct = false;
+                }
+            });
+
+            if (correct) {
+                exerciseScores[exId] = 1.25;
+                exerciseBox.style.backgroundColor = "#ecfdf5"; // Verd suau
+                exerciseBox.style.borderColor = "#10b981";
+            } else {
+                exerciseScores[exId] = 0;
+                exerciseBox.style.backgroundColor = "#fef2f2"; // Vermell suau
+                exerciseBox.style.borderColor = "#ef4444";
+                // DESAPAREIXEN ELS OBJECTES SI ES FALLA (Sense segones oportunitats)
+                items.forEach(item => {
+                    item.style.transition = "opacity 0.5s";
+                    item.style.opacity = "0";
+                    setTimeout(() => item.remove(), 500);
+                });
+            }
+
+            updateTotalScore();
+        }
+
+        function updateTotalScore() {
+            let total = 0;
+            for (let id in exerciseScores) {
+                total += exerciseScores[id];
+            }
+            document.getElementById('current-score').innerText = total.toFixed(2);
+            document.getElementById('form-score').value = total.toFixed(2) + " / 10.00";
+        }
+
+        function submitResults() {
+            // Verificar si tot s'ha intentat
+            let pending = false;
+            for(let id in exerciseAttempted) {
+                if(!exerciseAttempted[id]) pending = true;
+            }
+
+            if(pending) {
+                if(!confirm("Hi ha exercicis sense completar o sense avaluar del tot. Vols enviar igualment els resultats?")) {
+                    return;
+                }
+            }
+
+            // Enviament a Formspree
+            const form = document.getElementById('results-form');
+            form.submit();
+        }
+    </script>
+</body>
+</html>
