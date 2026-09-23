@@ -11,13 +11,16 @@
             --accent-color: #10b981;
             --danger-color: #ef4444;
             --bg-color: #f8fafc;
-            --card-bg: #ffffff;
+            --card-bg: rgba(255, 255, 255, 0.92);
             --text-color: #1e293b;
         }
 
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: var(--bg-color);
+            /* Fons de magatzem amb caixes */
+            background: linear-gradient(rgba(15, 23, 42, 0.75), rgba(15, 23, 42, 0.75)), 
+                        url('https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&w=1920&q=80') no-repeat center center fixed;
+            background-size: cover;
             color: var(--text-color);
             margin: 0;
             padding: 0;
@@ -25,10 +28,11 @@
         }
 
         header {
-            background-color: var(--primary-color);
+            background-color: rgba(30, 58, 138, 0.95);
             color: white;
             padding: 2rem;
             text-align: center;
+            border-bottom: 4px solid var(--secondary-color);
         }
 
         .container {
@@ -39,8 +43,9 @@
 
         .card {
             background-color: var(--card-bg);
+            backdrop-filter: blur(8px);
             border-radius: 12px;
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 8px 16px -4px rgba(0, 0, 0, 0.3);
             padding: 2rem;
             margin-bottom: 2rem;
         }
@@ -92,10 +97,12 @@
 
         .exercise-box {
             border: 1px solid #e2e8f0;
-            border-radius: 8px;
+            border-radius: 12px;
             padding: 1.5rem;
             margin-bottom: 2rem;
-            background-color: #fff;
+            background-color: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(5px);
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
             transition: background-color 0.3s, border-color 0.3s;
         }
 
@@ -182,7 +189,10 @@
             font-weight: bold;
             text-align: right;
             margin-bottom: 1rem;
-            color: var(--primary-color);
+            color: #ffffff;
+            background: rgba(30, 58, 138, 0.8);
+            padding: 0.75rem 1rem;
+            border-radius: 8px;
         }
 
         #submit-btn {
@@ -219,7 +229,7 @@
             </form>
         </div>
 
-        <!-- PANTALLA 2: ELS 8 RETOS INTERACTIUS -->
+        <!-- PANTALLA 2: ELS 8 REPTES INTERACTIUS -->
         <div id="quiz-screen">
             <div class="score-display">Puntuació Actual: <span id="current-score">0.00</span> / 10.00 punts</div>
 
@@ -227,21 +237,18 @@
                 <input type="hidden" name="email_estudiant" id="form-email">
                 <input type="hidden" name="puntuacio_total" id="form-score">
 
-                <!-- RETO 1 -->
+                <!-- REPTE 1 -->
                 <div class="exercise-box" data-exercise="1">
-                    <div class="exercise-title">Reto 1: L'Evolució de la Logística (Anys 70 vs Actualitat)</div>
+                    <div class="exercise-title">Repte 1: L'Evolució de la Logística (Anys 70 vs Actualitat)</div>
                     <div class="items-pool" ondragover="allowDrop(event)" ondrop="dropToPool(event)">
-                        <!-- Actualitat (4 opcions) -->
                         <div class="draggable-item" draggable="true" ondragstart="drag(event)" data-target="z1">Sistemes ERP, Intel·ligència Artificial i IoT[cite: 9].</div>
                         <div class="draggable-item" draggable="true" ondragstart="drag(event)" data-target="z1">Cadenes de subministrament globals i intercontinentals en temps real[cite: 9].</div>
                         <div class="draggable-item" draggable="true" ondragstart="drag(event)" data-target="z1">Models Just-in-Time, inventaris mínims i anàlisi predictiva[cite: 9].</div>
                         <div class="draggable-item" draggable="true" ondragstart="drag(event)" data-target="z1">Generació de valor, atenció al client 24/7 i sostenibilitat[cite: 9].</div>
-                        <!-- Anys 70 (4 opcions) -->
                         <div class="draggable-item" draggable="true" ondragstart="drag(event)" data-target="z2">Processos manuals basats en paper i telèfon fix[cite: 9].</div>
                         <div class="draggable-item" draggable="true" ondragstart="drag(event)" data-target="z2">Abast geogràfic principalment nacional o regional[cite: 9].</div>
                         <div class="draggable-item" draggable="true" ondragstart="drag(event)" data-target="z2">Grans inventaris emmagatzemats per evitar ruptures d'estoc[cite: 9].</div>
                         <div class="draggable-item" draggable="true" ondragstart="drag(event)" data-target="z2">Distribució física associada directament a la generació de costos[cite: 9].</div>
-                        <!-- Distractors -->
                         <div class="draggable-item" draggable="true" ondragstart="drag(event)" data-target="trash">Repartiment autònom mitjançant drons intergalàctics.</div>
                         <div class="draggable-item" draggable="true" ondragstart="drag(event)" data-target="trash">Teletransportació quàntica instantània de mercaderies.</div>
                     </div>
@@ -252,21 +259,17 @@
                     </div>
                 </div>
 
-                <!-- RETO 2 -->
+                <!-- REPTE 2 -->
                 <div class="exercise-box" data-exercise="2">
-                    <div class="exercise-title">Reto 2: Els 3 Pilars de la Logística Empresarial</div>
+                    <div class="exercise-title">Repte 2: Els 3 Pilars de la Logística Empresarial</div>
                     <div class="items-pool" ondragover="allowDrop(event)" ondrop="dropToPool(event)">
-                        <!-- Aprovisionament (3 opcions) -->
                         <div class="draggable-item" draggable="true" ondragstart="drag(event)" data-target="z1">Garantir la disponibilitat de productes i serveis externs[cite: 9].</div>
                         <div class="draggable-item" draggable="true" ondragstart="drag(event)" data-target="z1">Gestió de compres (necessitats, proveïdors i comandes)[cite: 9].</div>
                         <div class="draggable-item" draggable="true" ondragstart="drag(event)" data-target="z1">Gestió d'estocs (nivells adequats i periodicitat)[cite: 9].</div>
-                        <!-- Logística Interna (2 opcions) -->
                         <div class="draggable-item" draggable="true" ondragstart="drag(event)" data-target="z2">Gestió de materials i fluxos interns dins l'empresa[cite: 9].</div>
                         <div class="draggable-item" draggable="true" ondragstart="drag(event)" data-target="z2">Emmagatzematge (ubicació, manipulació) i control d'inventaris[cite: 9].</div>
-                        <!-- Logística Externa (2 opcions) -->
                         <div class="draggable-item" draggable="true" ondragstart="drag(event)" data-target="z3">Arribar al client final de forma òptima[cite: 9].</div>
                         <div class="draggable-item" draggable="true" ondragstart="drag(event)" data-target="z3">Expedició (preparació, embalatge), transport i atenció al client[cite: 9].</div>
-                        <!-- Distractors -->
                         <div class="draggable-item" draggable="true" ondragstart="drag(event)" data-target="trash">Càlcul i presentació telemàtica de l'Impost de Societats.</div>
                     </div>
                     <div class="dropzones-container">
@@ -277,19 +280,16 @@
                     </div>
                 </div>
 
-                <!-- RETO 3 -->
+                <!-- REPTE 3 -->
                 <div class="exercise-box" data-exercise="3">
-                    <div class="exercise-title">Reto 3: El Dualisme de l'Aprovisionament (Tècnic vs. Econòmic)</div>
+                    <div class="exercise-title">Repte 3: El Dualisme de l'Aprovisionament (Tècnic vs. Econòmic)</div>
                     <div class="items-pool" ondragover="allowDrop(event)" ondrop="dropToPool(event)">
-                        <!-- Criteri Tècnic (3 opcions) -->
                         <div class="draggable-item" draggable="true" ondragstart="drag(event)" data-target="z1">Objectiu principal: Màxima disponibilitat de materials[cite: 9].</div>
                         <div class="draggable-item" draggable="true" ondragstart="drag(event)" data-target="z1">Mantenir existències altes per impedir retards en la fabricació[cite: 9].</div>
                         <div class="draggable-item" draggable="true" ondragstart="drag(event)" data-target="z1">Risc associat: Costos d'emmagatzematge i obsolescència elevats[cite: 9].</div>
-                        <!-- Criteri Econòmic (3 opcions) -->
                         <div class="draggable-item" draggable="true" ondragstart="drag(event)" data-target="z2">Objectiu principal: Mínim cost global de gestió[cite: 9].</div>
                         <div class="draggable-item" draggable="true" ondragstart="drag(event)" data-target="z2">Minimitzar el cost d'aproximació, comanda i manteniment d'estocs[cite: 9].</div>
                         <div class="draggable-item" draggable="true" ondragstart="drag(event)" data-target="z2">Risc associat: Possibilitat de desabastiment temporal i aturades[cite: 9].</div>
-                        <!-- Distractors -->
                         <div class="draggable-item" draggable="true" ondragstart="drag(event)" data-target="trash">Eliminar per complet el magatzem i no comprar mai a ningú.</div>
                     </div>
                     <div class="dropzones-container">
@@ -299,20 +299,16 @@
                     </div>
                 </div>
 
-                <!-- RETO 4 -->
+                <!-- REPTE 4 -->
                 <div class="exercise-box" data-exercise="4">
-                    <div class="exercise-title">Reto 4: Els Sistemes d'Aprovisionament</div>
+                    <div class="exercise-title">Repte 4: Els Sistemes d'Aprovisionament</div>
                     <div class="items-pool" ondragover="allowDrop(event)" ondrop="dropToPool(event)">
-                        <!-- Esporàdic (2 opcions) -->
                         <div class="draggable-item" draggable="true" ondragstart="drag(event)" data-target="z1">Comprar només en el moment que fan falta les mercaderies[cite: 9].</div>
                         <div class="draggable-item" draggable="true" ondragstart="drag(event)" data-target="z1">Preval el criteri econòmic; alta dependència i risc de desabastiment[cite: 9].</div>
-                        <!-- Just-in-Time (2 opcions) -->
                         <div class="draggable-item" draggable="true" ondragstart="drag(event)" data-target="z2">Dates exactes per als lliuraments sense necessitat d'estoc[cite: 9].</div>
                         <div class="draggable-item" draggable="true" ondragstart="drag(event)" data-target="z2">Equilibri perfecte (tècnic i econòmic) però exigeix gran control[cite: 9].</div>
-                        <!-- Estoc de Seguretat (2 opcions) -->
                         <div class="draggable-item" draggable="true" ondragstart="drag(event)" data-target="z3">Mantenir sempre un nombre mínim d'existències garantides[cite: 9].</div>
                         <div class="draggable-item" draggable="true" ondragstart="drag(event)" data-target="z3">Preval el criteri tècnic; evita retards però suposa alts costos[cite: 9].</div>
-                        <!-- Distractors -->
                         <div class="draggable-item" draggable="true" ondragstart="drag(event)" data-target="trash">Acumular estoc obsolet durant anys per especular.</div>
                     </div>
                     <div class="dropzones-container">
@@ -323,17 +319,15 @@
                     </div>
                 </div>
 
-                <!-- RETO 5 -->
+                <!-- REPTE 5 (Sense números davant de cada enunciat) -->
                 <div class="exercise-box" data-exercise="5">
-                    <div class="exercise-title">Reto 5: Les 5 Etapes del Procés d'Aprovisionament</div>
+                    <div class="exercise-title">Repte 5: Les 5 Etapes del Procés d'Aprovisionament</div>
                     <div class="items-pool" ondragover="allowDrop(event)" ondrop="dropToPool(event)">
-                        <!-- Etapes (5 opcions) -->
-                        <div class="draggable-item" draggable="true" ondragstart="drag(event)" data-target="z1">1. Identificació de necessitats: Comunicació departamental[cite: 9].</div>
-                        <div class="draggable-item" draggable="true" ondragstart="drag(event)" data-target="z1">2. Selecció de proveïdors: Recerca i avaluació de fonts[cite: 9].</div>
-                        <div class="draggable-item" draggable="true" ondragstart="drag(event)" data-target="z1">3. Gestió de compres: Comanda, recepció i validació de pagaments[cite: 9].</div>
-                        <div class="draggable-item" draggable="true" ondragstart="drag(event)" data-target="z1">4. Gestió d'estocs: Control d'emmagatzematge i fluxos[cite: 9].</div>
-                        <div class="draggable-item" draggable="true" ondragstart="drag(event)" data-target="z1">5. Avaluació i control: Valoració dels objectius assolits[cite: 9].</div>
-                        <!-- Distractors -->
+                        <div class="draggable-item" draggable="true" ondragstart="drag(event)" data-target="z1">Identificació de necessitats: Comunicació departamental[cite: 9].</div>
+                        <div class="draggable-item" draggable="true" ondragstart="drag(event)" data-target="z1">Selecció de proveïdors: Recerca i avaluació de fonts[cite: 9].</div>
+                        <div class="draggable-item" draggable="true" ondragstart="drag(event)" data-target="z1">Gestió de compres: Comanda, recepció i validació de pagaments[cite: 9].</div>
+                        <div class="draggable-item" draggable="true" ondragstart="drag(event)" data-target="z1">Gestió d'estocs: Control d'emmagatzematge i fluxos[cite: 9].</div>
+                        <div class="draggable-item" draggable="true" ondragstart="drag(event)" data-target="z1">Avaluació i control: Valoració dels objectius assolits[cite: 9].</div>
                         <div class="draggable-item" draggable="true" ondragstart="drag(event)" data-target="trash">Disseny de campanyes de publicitat a xarxes socials.</div>
                     </div>
                     <div class="dropzones-container">
@@ -342,20 +336,16 @@
                     </div>
                 </div>
 
-                <!-- RETO 6 -->
+                <!-- REPTE 6 -->
                 <div class="exercise-box" data-exercise="6">
-                    <div class="exercise-title">Reto 6: Com s'organitza l'aprovisionament?</div>
+                    <div class="exercise-title">Repte 6: Com s'organitza l'aprovisionament?</div>
                     <div class="items-pool" ondragover="allowDrop(event)" ondrop="dropToPool(event)">
-                        <!-- Centralitzada (2 opcions) -->
                         <div class="draggable-item" draggable="true" ondragstart="drag(event)" data-target="z1">Un sol departament realitza totes les compres[cite: 9].</div>
                         <div class="draggable-item" draggable="true" ondragstart="drag(event)" data-target="z1">A favor: Control global i menors costos per volum (consolidació)[cite: 9].</div>
-                        <!-- Descentralitzada (2 opcions) -->
                         <div class="draggable-item" draggable="true" ondragstart="drag(event)" data-target="z2">Cada divisió o departament compra de forma autònoma[cite: 9].</div>
                         <div class="draggable-item" draggable="true" ondragstart="drag(event)" data-target="z2">A favor: Procés ràpid; en contra: major cost global[cite: 9].</div>
-                        <!-- Matricial (2 opcions) -->
                         <div class="draggable-item" draggable="true" ondragstart="drag(event)" data-target="z3">Gestió centralitzada per regions o zones geogràfiques[cite: 9].</div>
                         <div class="draggable-item" draggable="true" ondragstart="drag(event)" data-target="z3">Exclusiu per a grans empreses multinacionals[cite: 9].</div>
-                        <!-- Distractors -->
                         <div class="draggable-item" draggable="true" ondragstart="drag(event)" data-target="trash">Deixar que cada client compri directament a la fàbrica.</div>
                     </div>
                     <div class="dropzones-container">
@@ -366,16 +356,14 @@
                     </div>
                 </div>
 
-                <!-- RETO 7 -->
+                <!-- REPTE 7 (Sense números davant de cada enunciat) -->
                 <div class="exercise-box" data-exercise="7">
-                    <div class="exercise-title">Reto 7: El Pla d'Aprovisionament (Full de Ruta)</div>
+                    <div class="exercise-title">Repte 7: El Pla d'Aprovisionament (Full de Ruta)</div>
                     <div class="items-pool" ondragover="allowDrop(event)" ondrop="dropToPool(event)">
-                        <!-- Fases del Pla (4 opcions) -->
-                        <div class="draggable-item" draggable="true" ondragstart="drag(event)" data-target="z1">1. Anàlisi Prèvia: Estimació d'objectius i pla anterior[cite: 9].</div>
-                        <div class="draggable-item" draggable="true" ondragstart="drag(event)" data-target="z1">2. Redacció del Pla: Definició d'estratègies i criteris d'estoc[cite: 9].</div>
-                        <div class="draggable-item" draggable="true" ondragstart="drag(event)" data-target="z1">3. Posada en Marxa: Desenvolupament de compres aplicant TIC[cite: 9].</div>
-                        <div class="draggable-item" draggable="true" ondragstart="drag(event)" data-target="z1">4. Valoració i Control: Verificació de resultats i qualitat[cite: 9].</div>
-                        <!-- Distractors -->
+                        <div class="draggable-item" draggable="true" ondragstart="drag(event)" data-target="z1">Anàlisi Prèvia: Estimació d'objectius i pla anterior[cite: 9].</div>
+                        <div class="draggable-item" draggable="true" ondragstart="drag(event)" data-target="z1">Redacció del Pla: Definició d'estratègies i criteris d'estoc[cite: 9].</div>
+                        <div class="draggable-item" draggable="true" ondragstart="drag(event)" data-target="z1">Posada en Marxa: Desenvolupament de compres aplicant TIC[cite: 9].</div>
+                        <div class="draggable-item" draggable="true" ondragstart="drag(event)" data-target="z1">Valoració i Control: Verificació de resultats i qualitat[cite: 9].</div>
                         <div class="draggable-item" draggable="true" ondragstart="drag(event)" data-target="trash">Liquidació d'impostos de societats davant l'AEAT.</div>
                     </div>
                     <div class="dropzones-container">
@@ -384,17 +372,15 @@
                     </div>
                 </div>
 
-                <!-- RETO 8 -->
+                <!-- REPTE 8 -->
                 <div class="exercise-box" data-exercise="8">
-                    <div class="exercise-title">Reto 8: L'Ecosistema Tecnològic (TIC)</div>
+                    <div class="exercise-title">Repte 8: L'Ecosistema Tecnològic (TIC)</div>
                     <div class="items-pool" ondragover="allowDrop(event)" ondrop="dropToPool(event)">
-                        <!-- Eines TIC (5 opcions) -->
                         <div class="draggable-item" draggable="true" ondragstart="drag(event)" data-target="z1">ERP: Planificació de recursos que uneix compres, producció i finances[cite: 9].</div>
                         <div class="draggable-item" draggable="true" ondragstart="drag(event)" data-target="z1">RFID: Traçabilitat d'estoc en temps real per radiofreqüència[cite: 9].</div>
                         <div class="draggable-item" draggable="true" ondragstart="drag(event)" data-target="z1">EDI: Intercanvi electrònic directe de documents comercials[cite: 9].</div>
                         <div class="draggable-item" draggable="true" ondragstart="drag(event)" data-target="z1">Forecasting: Eines de predicció científica de la demanda[cite: 9].</div>
                         <div class="draggable-item" draggable="true" ondragstart="drag(event)" data-target="z1">e-procurement: Integració B2B directa a través d'internet[cite: 9].</div>
-                        <!-- Distractors -->
                         <div class="draggable-item" draggable="true" ondragstart="drag(event)" data-target="trash">Passarel·la de pagament TPV per a clients particulars.</div>
                     </div>
                     <div class="dropzones-container">
